@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Item</title>
+</head>
+<body>
+    <h1>Add New Item</h1>
+    <form action="/items/add/" method="POST">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <input type="text" name="name" required><br><br>
+
+        <label for="category">Category:</label>
+        <select name="category" required>
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="supplier">Supplier:</label>
+        <select name="supplier" required>
+            {% for supplier in suppliers %}
+                <option value="{{ supplier.id }}">{{ supplier.name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" required><br><br>
+
+        <label for="price">Price:</label>
+        <input type="text" id="price" name="price" autocomplete="off" placeholder="Masukkan harga" required>
+
+        <script>
+            const priceInput = document.getElementById('price');
+        
+            priceInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/[^0-9]/g, '');  // Ambil hanya angka
+                if (value) {
+                    e.target.value = Number(value).toLocaleString('id-ID');  // Format angka ke format lokal
+                } else {
+                    e.target.value = '';
+                }
+            });
+        </script>        
+        
+        <br><br><button type="submit">Tambahkan Barang</button><br><br>
+    </form>
+    <a href="/items/">Kembali ke Daftar Barang</a>
+</body>
+</html>

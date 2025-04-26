@@ -1,0 +1,7 @@
+<h1>Daftar Supplier</h1>
+<ul>
+  {% for supplier in suppliers %}
+    <li>{{ supplier.name }} - {{ supplier.contact_info }}</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'add_supplier' %}">Tambah Supplier</a>
